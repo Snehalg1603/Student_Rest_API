@@ -1,8 +1,9 @@
-package com.tch.student.service;
+package com.tch.student.service.impl;
 
 import com.tch.student.dto.StudentDto;
 import com.tch.student.entity.StudentEntity;
 import com.tch.student.repository.StudentRepository;
+import com.tch.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +17,20 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
 
     @Override
     public StudentDto addStudent(StudentDto studentDto){
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setStudentName(studentDto.getStudentName());
-        studentEntity.setStudentDept(studentDto.getStudentDept());
-        studentEntity.setStudentDiv(studentDto.getStudentDiv());
+        studentEntity.setStudentAddress(studentDto.getStudentAddress());
+        studentEntity.setStudentAge(studentDto.getStudentAge());
         studentEntity=studentRepository.save(studentEntity);
         if(studentEntity!=null){
             studentDto = new StudentDto();
             studentDto.setStudentId(studentEntity.getStudentId());
             studentDto.setStudentName(studentEntity.getStudentName());
-            studentDto.setStudentDept(studentEntity.getStudentDept());
-            studentDto.setStudentDiv(studentEntity.getStudentDiv());
+            studentDto.setStudentAddress(studentEntity.getStudentAddress());
+            studentDto.setStudentAge(studentEntity.getStudentAge());
         }
         return studentDto;
 
@@ -42,10 +41,10 @@ public class StudentServiceImpl implements StudentService {
         StudentDto studentDtoDB = getStudent(studentId);
         if (studentDtoDB.getStudentId()!=null) {
             StudentEntity entity = new StudentEntity();
-            entity.setStudentId(StudentDto.getStudentId());
-            entity.setStudentName(StudentDto.getStudentName());
-            entity.setStudentDept(StudentDto.getStudentDept());
-            entity.setStudentDiv(StudentDto.getStudentDiv());
+            entity.setStudentId(studentDto.getStudentId());
+            entity.setStudentName(studentDto.getStudentName());
+            entity.setStudentAddress(studentDto.getStudentAddress());
+            entity.setStudentAge(studentDto.getStudentAge());
             studentRepository.save(entity);
         }
         return studentDto;
@@ -54,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Boolean deleteStudent (int StudentId){
+    public Boolean deleteStudent (int studentId){
         StudentDto studentDtoDB = getStudent(studentId);
         if (studentDtoDB!=null){
             studentRepository.deleteById(studentId);
@@ -66,15 +65,14 @@ public class StudentServiceImpl implements StudentService {
 
 @Override
     public StudentDto getStudent (int studentId){
-    Optional<StudentEntity>entity=studentRepository.findById(StudentId);
+    Optional<StudentEntity>entity=studentRepository.findById(studentId);
     StudentEntity studentEntity=entity.get();
     StudentDto studentDto = new StudentDto();
     if (studentEntity!=null){
-        StudentDto studentDto = new StudentDto();
         studentDto.setStudentId(studentEntity.getStudentId());
         studentDto.setStudentName(studentEntity.getStudentName());
-        studentDto.setStudentDept(studentEntity.getStudentDept());
-        studentDto.setStudentDiv(studentEntity.getStudentDiv());
+        studentDto.setStudentAddress(studentEntity.getStudentAddress());
+        studentDto.setStudentAge(studentEntity.getStudentAge());
     }
 
     return studentDto;
@@ -82,14 +80,14 @@ public class StudentServiceImpl implements StudentService {
 
 @Override
     public List<StudentDto> getAllStudent(){
-        List<StudentEntity> studentEntities = studentRepository.FindByAll();
+        List<StudentEntity> studentEntities = studentRepository.findAll();
         List<StudentDto> studentDtos = new ArrayList<>();
         for (StudentEntity studentEntity:studentEntities){
             StudentDto studentDto = new StudentDto();
             studentDto.setStudentId(studentEntity.getStudentId());
             studentDto.setStudentName(studentEntity.getStudentName());
-            studentDto.setStudentDept(studentEntity.getStudentDept());
-            studentDto.setStudentDiv(studentEntity.getStudentDiv());
+            studentDto.setStudentAddress(studentEntity.getStudentAddress());
+            studentDto.setStudentAge(studentEntity.getStudentAge());
             studentDtos.add(studentDto);
         }
         return studentDtos;
