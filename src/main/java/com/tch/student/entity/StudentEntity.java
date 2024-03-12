@@ -1,10 +1,21 @@
 package com.tch.student.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="Student")
 public class StudentEntity {
+    @Id
+    @Column(name = "student_id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String studentId;
+    @Column(name = "student_name" )
     String studentName;
+    @Column(name = "student_age")
     String studentAge;
+    @Column(name = "student_gender")
     String studentGender;
+    @Column(name = "student_address")
     String studentAddress;
 
     public StudentEntity() {
