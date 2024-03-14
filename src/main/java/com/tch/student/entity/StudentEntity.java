@@ -7,8 +7,9 @@ import jakarta.persistence.*;
 public class StudentEntity {
     @Id
     @Column(name = "student_id", unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     String studentId;
+
     @Column(name = "student_name" )
     String studentName;
     @Column(name = "student_age")
