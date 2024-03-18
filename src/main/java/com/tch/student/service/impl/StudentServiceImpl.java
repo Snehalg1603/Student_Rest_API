@@ -4,6 +4,7 @@ import com.tch.student.dto.StudentDto;
 import com.tch.student.entity.StudentEntity;
 import com.tch.student.repository.StudentRepository;
 import com.tch.student.service.StudentService;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
@@ -24,6 +26,7 @@ public class StudentServiceImpl implements StudentService {
         studentEntity.setStudentName(studentDto.getStudentName());
         studentEntity.setStudentAddress(studentDto.getStudentAddress());
         studentEntity.setStudentAge(studentDto.getStudentAge());
+        studentEntity.setStudentGender(studentDto.getStudentGender());
         studentEntity=studentRepository.save(studentEntity);
         if(studentEntity!=null){
             studentDto = new StudentDto();
@@ -31,6 +34,7 @@ public class StudentServiceImpl implements StudentService {
             studentDto.setStudentName(studentEntity.getStudentName());
             studentDto.setStudentAddress(studentEntity.getStudentAddress());
             studentDto.setStudentAge(studentEntity.getStudentAge());
+            studentDto.setStudentGender(studentEntity.getStudentGender());
         }
         return studentDto;
 
@@ -39,14 +43,17 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto  updateStudent(int studentId, StudentDto studentDto){
         StudentDto studentDtoDB = getStudent(studentId);
-        if (studentDtoDB.getStudentId()!=null) {
+        if (Integer.valueOf(studentDtoDB.getStudentId()) != null) {
             StudentEntity entity = new StudentEntity();
-            entity.setStudentId(studentDto.getStudentId());
+            studentDto.setStudentId(studentDtoDB.getStudentId());
+            entity.setStudentId(studentDtoDB.getStudentId());
             entity.setStudentName(studentDto.getStudentName());
             entity.setStudentAddress(studentDto.getStudentAddress());
             entity.setStudentAge(studentDto.getStudentAge());
+            entity.setStudentGender(studentDto.getStudentGender());
             studentRepository.save(entity);
         }
+
         return studentDto;
 
     }
@@ -73,6 +80,8 @@ public class StudentServiceImpl implements StudentService {
         studentDto.setStudentName(studentEntity.getStudentName());
         studentDto.setStudentAddress(studentEntity.getStudentAddress());
         studentDto.setStudentAge(studentEntity.getStudentAge());
+        studentDto.setStudentGender(studentEntity.getStudentGender());
+
     }
 
     return studentDto;
@@ -88,6 +97,7 @@ public class StudentServiceImpl implements StudentService {
             studentDto.setStudentName(studentEntity.getStudentName());
             studentDto.setStudentAddress(studentEntity.getStudentAddress());
             studentDto.setStudentAge(studentEntity.getStudentAge());
+            studentDto.setStudentGender(studentEntity.getStudentGender());
             studentDtos.add(studentDto);
         }
         return studentDtos;

@@ -23,7 +23,7 @@ StudentController {
     }
 
     @PutMapping("/updateStudent/{studentId}")
-    public ResponseEntity<StudentDto> updateStudent(@PathVariable(value = "studentId") int studentId, StudentDto studentDto) {
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable (value = "studentId") int studentId, @RequestBody StudentDto studentDto) {
 
         StudentDto dto = studentService.getStudent(studentId);
         if (studentDto == null) {

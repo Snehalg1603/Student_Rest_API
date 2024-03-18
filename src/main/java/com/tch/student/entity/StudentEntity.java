@@ -8,7 +8,7 @@ public class StudentEntity {
     @Id
     @Column(name = "student_id", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    String studentId;
+    int studentId;
 
     @Column(name = "student_name" )
     String studentName;
@@ -22,7 +22,7 @@ public class StudentEntity {
     public StudentEntity() {
     }
 
-    public StudentEntity(String studentId, String studentName, String studentAge, String studentGender, String studentAddress) {
+    public StudentEntity(int studentId, String studentName, String studentAge, String studentGender, String studentAddress) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.studentAge = studentAge;
@@ -30,11 +30,11 @@ public class StudentEntity {
         this.studentAddress = studentAddress;
     }
 
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 

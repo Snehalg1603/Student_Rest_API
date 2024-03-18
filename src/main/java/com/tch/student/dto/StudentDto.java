@@ -1,8 +1,11 @@
 package com.tch.student.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class StudentDto {
 
-    String studentId;
+    int studentId;
     String studentName;
     String studentAge;
     String studentGender;
@@ -11,7 +14,7 @@ public class StudentDto {
     public StudentDto() {
     }
 
-    public StudentDto(String studentId, String studentName, String studentAge, String studentGender, String studentAddress) {
+    public StudentDto(int studentId, String studentName, String studentAge, String studentGender, String studentAddress) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.studentAge = studentAge;
@@ -19,11 +22,11 @@ public class StudentDto {
         this.studentAddress = studentAddress;
     }
 
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
